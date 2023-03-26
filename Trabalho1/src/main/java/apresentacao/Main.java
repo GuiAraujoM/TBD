@@ -19,19 +19,6 @@ import persistencia.*;
 public class Main {  
 
     public static void main(String[] args) {
-        /*EntityManager em = JPAUtil.getEntityManager();
-        em.getTransaction().begin();
-        Funcionario f = new Funcionario();
-        f.setNome("Betito ");
-        em.persist(f);
-        em.getTransaction().commit();
-        em.close();*/
-        /*GenericoDAO dao = new GenericoDAO<Funcionario>();
-        Funcionario f1 = new Funcionario();
-        f1.setNome("Betito ");
-        dao.salvar(f1);
-        Funcionario f2 = (Funcionario)dao.consultarPorId(Funcionario.class, 1);
-        System.out.println(f2.getNome());*/
         Scanner sc = new Scanner(System.in);
 
         while(true){
@@ -58,7 +45,7 @@ public class Main {
         SetorDAO setorDAO = new SetorDAO();
         
         if(operacao == 1){ //Criar
-            if(entidade == 1){ //Funcionario
+            if(entidade == 1){ //Criar Funcionario
                 
                 Funcionario func = Funcionario.criarFuncionario();               
 
@@ -70,7 +57,7 @@ public class Main {
                     throw e;
                 }
 
-            }else if (entidade == 2) { //Paciente
+            }else if (entidade == 2) { //Criar Paciente
 
                 Paciente pac = Paciente.criarPaciente();
 
@@ -82,7 +69,7 @@ public class Main {
                     throw e;
                 }
 
-            }else if (entidade == 3) { //Atendimento
+            }else if (entidade == 3) { //Criar Atendimento
 
                 Atendimento atend = Atendimento.criarAtendimento();
 
@@ -94,7 +81,7 @@ public class Main {
                     throw e;
                 }
 
-            }else if(entidade == 4){ //Setor
+            }else if(entidade == 4){ //Criar Setor
                 
                 Setor setor = Setor.criaSetor();                
 
@@ -128,7 +115,7 @@ public class Main {
                     System.out.println("Funcionário não encontrado, tente novamente");
                 } 
 
-            }else if(entidade == 2){ //Paciente
+            }else if(entidade == 2){ //Editar Paciente
 
                 System.out.println("Insira o cpf do paciente que deseja editar");
                 stringInput = sc.nextLine();
@@ -149,7 +136,7 @@ public class Main {
                     System.out.println("Paciente não encontrado, tente novamente");
                 }
 
-            }else if(entidade == 3){ //Atendimento
+            }else if(entidade == 3){ //Editar Atendimento
 
                 System.out.println("Insira o id do atendimento que deseja editar");
                 stringInput = sc.nextLine();
@@ -170,7 +157,7 @@ public class Main {
                     System.out.println("Atendimento não encontrado, tente novamente");
                 }
 
-            }else if(entidade == 4){ //Setor
+            }else if(entidade == 4){ //Editar Setor
 
                 System.out.println("Insira o nome do setor que deseja editar");
                 stringInput = sc.nextLine();
@@ -193,7 +180,7 @@ public class Main {
 
             }
         }else if(operacao == 3){ //Deletar
-            if(entidade == 1){
+            if(entidade == 1){ //Deletar Funcionário
 
                 System.out.println("Insira o cpf do funcionário que deseja deletar");
                 stringInput = sc.nextLine();                
@@ -203,7 +190,7 @@ public class Main {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
                     
-            }else if(entidade == 2){
+            }else if(entidade == 2){ //Deleter Paciente
 
                 System.out.println("Insira o cpf do paciente que deseja deletar");
                 stringInput = sc.nextLine();
@@ -213,7 +200,7 @@ public class Main {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
 
-            }else if(entidade == 3){
+            }else if(entidade == 3){ //Deleter Atendimento
 
                 System.out.println("Insira o id do atendimento que deseja deletar");
                 stringInput = sc.nextLine();
@@ -223,7 +210,7 @@ public class Main {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
 
-            }else if(entidade == 4){
+            }else if(entidade == 4){ //Deleter Setor
 
                 System.out.println("Insira o nome do setor que deseja deletar");
                 stringInput = sc.nextLine();
@@ -234,20 +221,27 @@ public class Main {
                 }
 
             }
-        }else if(operacao == 4){
-            if(entidade == 1){
+        }else if(operacao == 4){ //Consultar
+            if(entidade == 1){ //Consultar Funcionário
+
                 System.out.println("Insira o cpf do funcionário que deseja consultar");
                 stringInput = sc.nextLine();
                 funcDAO.consultarPorCpf(stringInput).toString();
-            }else if(entidade == 2){
+
+            }else if(entidade == 2){ //Consultar Paciente
+
                 System.out.println("Insira o cpf do paciente que deseja consultar");
                 stringInput = sc.nextLine();
                 pacDAO.consultarPorCpf(stringInput).toString();
-            }else if(entidade == 3){
+
+            }else if(entidade == 3){ //Consultar Atendimento
+
                 System.out.println("Insira o id do atendimento que deseja consultar");
                 stringInput = sc.nextLine();
                 atendDAO.consultarPorId(Atendimento.class, Integer.parseInt(stringInput)).toString();
-            }else if(entidade == 4){
+
+            }else if(entidade == 4){ //Consultar Setor
+
                 System.out.println("Insira o nome do setor que deseja consultar");
                 stringInput = sc.nextLine();
                 setorDAO.consultarPorNome(stringInput).toString();
