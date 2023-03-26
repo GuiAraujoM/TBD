@@ -31,4 +31,10 @@ public class SetorDAO extends GenericoDAO<Setor>{
 
         return setor;   
     }
+
+    public List<Setor> listar() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Setor> setores = em.createNamedQuery("Setor.listar", Setor.class).getResultList();
+        return setores;
+    }
 }

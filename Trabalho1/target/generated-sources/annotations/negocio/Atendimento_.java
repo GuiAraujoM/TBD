@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import negocio.Funcionario;
 import negocio.Paciente;
 
-@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2023-03-26T18:26:20", comments="EclipseLink-2.7.10.v20211216-rNA")
+@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2023-03-26T18:45:41", comments="EclipseLink-2.7.10.v20211216-rNA")
 @StaticMetamodel(Atendimento.class)
 public class Atendimento_ { 
 

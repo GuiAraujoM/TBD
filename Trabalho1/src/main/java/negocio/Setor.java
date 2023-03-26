@@ -10,9 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@NamedQueries({
+        @NamedQuery(name = "Setor.listar", query = "SELECT s FROM Setor s")
+})
 @Entity
 @Table(name = "setor")
 public class Setor implements Serializable, EntidadeGenerica{

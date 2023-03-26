@@ -32,4 +32,10 @@ public class PacienteDAO extends GenericoDAO<Paciente>{
 
         return paciente;
     }
+
+    public List<Paciente> listar() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Paciente> pacientes = em.createNamedQuery("Paciente.listar", Paciente.class).getResultList();
+        return pacientes;
+    }
 }

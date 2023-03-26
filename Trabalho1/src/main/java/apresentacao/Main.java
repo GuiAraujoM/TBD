@@ -17,7 +17,7 @@ public class Main {
 
         while(true){
             System.out.println("Insira a operação que deseja realizar");
-            System.out.println("(1 - Criar, 2 - Editar, 3 - Apagar, 4 - Consultar)");
+            System.out.println("(1 - Criar, 2 - Editar, 3 - Apagar, 4 - Consultar, 5 - Listar)");
             int operacao = sc.nextInt();
 
             System.out.println("Insira a entidade da operação que deseja realizar");
@@ -243,6 +243,16 @@ public class Main {
                 System.out.println("Insira o nome do setor que deseja consultar");
                 stringInput = sc.nextLine();
                 System.out.println(setorDAO.consultarPorNome(stringInput).toString());
+            }
+        }else if(operacao == 5){ //Listar
+            if(entidade == 1){
+                funcDAO.listar().forEach(System.out::println);
+            } else if (entidade == 2){
+                pacDAO.listar().forEach(System.out::println);
+            } else if (entidade == 3) {
+                atendDAO.listar().forEach(System.out::println);
+            } else if (entidade == 4) {
+                setorDAO.listar().forEach(System.out::println);
             }
         }
     }

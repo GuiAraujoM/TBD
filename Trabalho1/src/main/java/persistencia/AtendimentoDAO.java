@@ -46,4 +46,10 @@ public class AtendimentoDAO extends GenericoDAO<Atendimento>{
 
         return atendimentos;
     }
+
+    public List<Atendimento> listar(){
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Atendimento> atendimentos = em.createNamedQuery("Atendimento.listar", Atendimento.class).getResultList();
+        return atendimentos;
+    }
 }

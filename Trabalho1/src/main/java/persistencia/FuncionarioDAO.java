@@ -35,7 +35,6 @@ public class FuncionarioDAO extends GenericoDAO<Funcionario>{
 
     public List<Funcionario> consultarPorSetor(int setorId) {
         EntityManager em = JPAUtil.getEntityManager();
-        AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
         List<Funcionario> funcionarios = null;
 
         try {
@@ -52,6 +51,12 @@ public class FuncionarioDAO extends GenericoDAO<Funcionario>{
             em.close();
         }
 
+        return funcionarios;
+    }
+
+    public List<Funcionario> listar() {
+        EntityManager em = JPAUtil.getEntityManager();
+        List<Funcionario> funcionarios = em.createNamedQuery("Funcionario.listar", Funcionario.class).getResultList();
         return funcionarios;
     }
 }
