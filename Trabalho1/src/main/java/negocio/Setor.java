@@ -10,9 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@NamedQueries({
+        @NamedQuery(name = "Setor.listar", query = "SELECT s FROM Setor s")
+})
 @Entity
 @Table(name = "setor")
 public class Setor implements Serializable, EntidadeGenerica{
@@ -24,7 +29,7 @@ public class Setor implements Serializable, EntidadeGenerica{
     private String nome;
 
     @OneToMany(mappedBy = "setor")
-    private List<Funcionario> atendimentos = new ArrayList<Funcionario>();
+    private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
     public Setor(){
         
@@ -46,12 +51,12 @@ public class Setor implements Serializable, EntidadeGenerica{
         this.nome = nome;
     }
 
-    public List<Funcionario> getAtendimentos() {
-        return atendimentos;
+    public List<Funcionario> getfuncionarios() {
+        return funcionarios;
     }
 
-    public void setAtendimentos(List<Funcionario> atendimentos) {
-        this.atendimentos = atendimentos;
+    public void setfuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
     }
 
     public static Setor criaSetor(){
@@ -69,7 +74,7 @@ public class Setor implements Serializable, EntidadeGenerica{
 
     @Override
     public String toString() {
-        return "Setor [id=" + id + ", nome=" + nome + "]";
+        return "Setor [id=" + id + ", nome=" + nome + ", funcionarios=" + funcionarios + "]";
     } 
     
 }

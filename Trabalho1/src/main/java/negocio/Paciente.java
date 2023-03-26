@@ -10,11 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import persistencia.PacienteDAO;
-
+@NamedQueries({
+        @NamedQuery(name = "Paciente.listar", query = "SELECT p FROM Paciente p")
+})
 @Entity
 @Table(name = "paciente")
 public class Paciente implements Serializable, EntidadeGenerica{
@@ -53,6 +56,14 @@ public class Paciente implements Serializable, EntidadeGenerica{
         this.cpf = cpf;
     }
 
+    public List<Atendimento> getAtendimentos() {
+        return atendimentos;
+    }
+
+    public void setAtendimentos(List<Atendimento> atendimentos) {
+        this.atendimentos = atendimentos;
+    }
+
     public static Paciente criarPaciente(){
         Paciente pac = new Paciente();
         Scanner sc = new Scanner(System.in);
@@ -72,6 +83,5 @@ public class Paciente implements Serializable, EntidadeGenerica{
     @Override
     public String toString() {
         return "Paciente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + "]";
-    } 
-    
+    }    
 }

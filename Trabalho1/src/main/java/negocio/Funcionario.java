@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,9 @@ import persistencia.*;
 
 @Entity
 @Table(name = "funcionario")
+@NamedQueries({
+        @NamedQuery(name = "Funcionario.listar", query = "SELECT f FROM Funcionario f")
+})
 public class Funcionario implements Serializable, EntidadeGenerica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,7 +148,6 @@ public class Funcionario implements Serializable, EntidadeGenerica {
     @Override
     public String toString() {
         return "Funcionario [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha
-                + ", setor=" + setor + "]";
+                + ", atendimentos=" + atendimentos + ", setor=" + setor + "]";
     }
-    
 }

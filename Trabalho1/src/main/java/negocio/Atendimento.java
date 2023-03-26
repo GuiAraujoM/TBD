@@ -12,16 +12,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import persistencia.AtendimentoDAO;
 import persistencia.FuncionarioDAO;
 import persistencia.PacienteDAO;
-import persistencia.SetorDAO;
 
 
 @Entity
 @Table(name = "atendimento")
+@NamedQueries({
+        @NamedQuery(name = "Atendimento.listar", query = "SELECT a FROM Atendimento a")
+})
 public class Atendimento implements Serializable, EntidadeGenerica{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
