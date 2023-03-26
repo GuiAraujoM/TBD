@@ -10,6 +10,7 @@ import util.JPAUtil;
 
 public class SetorDAO extends GenericoDAO<Setor>{
     public Setor consultarPorNome(String nome){
+        FuncionarioDAO funcDAO = new FuncionarioDAO();
         EntityManager em = JPAUtil.getEntityManager();
         Setor setor = null;
 
@@ -18,7 +19,11 @@ public class SetorDAO extends GenericoDAO<Setor>{
             query.setParameter("nome", nome);
             List<Setor> resultList = query.getResultList();
             setor = resultList.get(0);
+                       
+            setor.setfuncionarios(funcDAO.consultarPorSetor(setor.getId()));
+            return setor;
         } catch (Exception e){
+            System.out.println(e.getMessage());
             setor = null;
         } finally {
             em.close();

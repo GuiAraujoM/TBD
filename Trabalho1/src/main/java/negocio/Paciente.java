@@ -53,6 +53,14 @@ public class Paciente implements Serializable, EntidadeGenerica{
         this.cpf = cpf;
     }
 
+    public List<Atendimento> getAtendimentos() {
+        return atendimentos;
+    }
+
+    public void setAtendimentos(List<Atendimento> atendimentos) {
+        this.atendimentos = atendimentos;
+    }
+
     public static Paciente criarPaciente(){
         Paciente pac = new Paciente();
         Scanner sc = new Scanner(System.in);
@@ -72,6 +80,5 @@ public class Paciente implements Serializable, EntidadeGenerica{
     @Override
     public String toString() {
         return "Paciente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + "]";
-    } 
-    
+    }    
 }

@@ -143,7 +143,6 @@ public class Funcionario implements Serializable, EntidadeGenerica {
     @Override
     public String toString() {
         return "Funcionario [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha
-                + ", setor=" + setor + "]";
+                + ", atendimentos=" + atendimentos + ", setor=" + setor + "]";
     }
-    
 }

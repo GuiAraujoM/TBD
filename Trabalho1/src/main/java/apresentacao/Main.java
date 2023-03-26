@@ -5,13 +5,7 @@
 
 package apresentacao;
 
-import util.JPAUtil;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
-import javax.persistence.EntityManager;
 
 import negocio.*;
 import persistencia.*;
@@ -186,6 +180,7 @@ public class Main {
                 stringInput = sc.nextLine();                
                 try{
                     funcDAO.remover(Funcionario.class, funcDAO.consultarPorCpf(stringInput).getId());
+                    System.out.println("Deletado");
                 }catch(Exception e){
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
@@ -196,6 +191,7 @@ public class Main {
                 stringInput = sc.nextLine();
                 try {
                     pacDAO.remover(Paciente.class, pacDAO.consultarPorCpf(stringInput).getId());
+                    System.out.println("Deletado");
                 } catch (Exception e) {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
@@ -206,6 +202,7 @@ public class Main {
                 stringInput = sc.nextLine();
                 try {
                     atendDAO.remover(Atendimento.class, atendDAO.consultarPorId(Atendimento.class, Integer.parseInt(stringInput)).getId());
+                    System.out.println("Deletado");
                 } catch (Exception e) {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
@@ -216,6 +213,7 @@ public class Main {
                 stringInput = sc.nextLine();
                 try {
                     setorDAO.remover(Setor.class, setorDAO.consultarPorNome(stringInput).getId());
+                    System.out.println("Deletado");
                 } catch (Exception e) {
                     System.out.println("Erro ao deletar: " + e.getMessage());
                 }
@@ -226,25 +224,25 @@ public class Main {
 
                 System.out.println("Insira o cpf do funcionário que deseja consultar");
                 stringInput = sc.nextLine();
-                funcDAO.consultarPorCpf(stringInput).toString();
+                System.out.println(funcDAO.consultarPorCpf(stringInput).toString());
 
             }else if(entidade == 2){ //Consultar Paciente
 
                 System.out.println("Insira o cpf do paciente que deseja consultar");
                 stringInput = sc.nextLine();
-                pacDAO.consultarPorCpf(stringInput).toString();
+                System.out.println(pacDAO.consultarPorCpf(stringInput).toString());
 
             }else if(entidade == 3){ //Consultar Atendimento
 
                 System.out.println("Insira o id do atendimento que deseja consultar");
-                stringInput = sc.nextLine();
-                atendDAO.consultarPorId(Atendimento.class, Integer.parseInt(stringInput)).toString();
+                stringInput = sc.nextLine();                
+                System.out.println(atendDAO.consultarPorId(Atendimento.class, Integer.parseInt(stringInput)).toString());
 
             }else if(entidade == 4){ //Consultar Setor
 
                 System.out.println("Insira o nome do setor que deseja consultar");
                 stringInput = sc.nextLine();
-                setorDAO.consultarPorNome(stringInput).toString();
+                System.out.println(setorDAO.consultarPorNome(stringInput).toString());
             }
         }
     }
