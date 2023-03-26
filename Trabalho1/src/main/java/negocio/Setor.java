@@ -3,6 +3,7 @@ package negocio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "setor")
-public class Setor {
+public class Setor implements Serializable, EntidadeGenerica{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -28,5 +29,47 @@ public class Setor {
     public Setor(){
         
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Funcionario> getAtendimentos() {
+        return atendimentos;
+    }
+
+    public void setAtendimentos(List<Funcionario> atendimentos) {
+        this.atendimentos = atendimentos;
+    }
+
+    public static Setor criaSetor(){
+        Scanner sc = new Scanner(System.in);
+        String stringInput;
+
+
+        Setor setor = new Setor();
+        System.out.println("Insira o nome do setor");
+        stringInput = sc.nextLine();
+        setor.setNome(stringInput);
+
+        return setor;
+    }
+
+    @Override
+    public String toString() {
+        return "Setor [id=" + id + ", nome=" + nome + "]";
+    } 
     
 }

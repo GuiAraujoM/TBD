@@ -4,10 +4,11 @@
  */
 package negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,17 +19,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import persistencia.*;
+
 @Entity
 @Table(name = "funcionario")
-public class Funcionario implements Serializable {
+public class Funcionario implements Serializable, EntidadeGenerica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
     @Column
+    private String cpf;
+    @Column
     private String nome;
     @Column
-    private String email;
+    private String email;    
     @Column
     private String senha;
     
@@ -74,7 +79,71 @@ public class Funcionario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
+    public List<Atendimento> getAtendimentos() {
+        return atendimentos;
+    }
+
+    public void setAtendimentos(List<Atendimento> atendimentos) {
+        this.atendimentos = atendimentos;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public static Funcionario criarFuncionario(){
+        Scanner sc = new Scanner(System.in);        
+        SetorDAO setorDAO = new SetorDAO();
+        String stringInput;
+
+        Funcionario func = new Funcionario();
+
+        System.out.println("Insira o nome do funcionário");
+        stringInput = sc.nextLine();
+        func.setNome(stringInput);
+
+        System.out.println("Insira o email do funcionário");
+        stringInput = sc.nextLine();
+        func.setEmail(stringInput);
+
+        System.out.println("Insira a senha do funcionário");
+        stringInput = sc.nextLine();
+        func.setSenha(stringInput);
+
+        System.out.println("Insira o cpf do funcionário");
+        stringInput = sc.nextLine();
+        func.setCpf(stringInput);
+
+        System.out.println("Insira o nome do setor");
+        stringInput = sc.nextLine();
+        
+        if (setorDAO.consultarPorNome(stringInput) != null) {
+            func.setSetor(setorDAO.consultarPorNome(stringInput));
+        } else {
+            System.out.println("Setor não encontrado, funcionário será criado/atualizado sem setor.");
+        }
+
+        return func;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Funcionario [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", senha=" + senha
+                + ", setor=" + setor + "]";
+    }
     
 }

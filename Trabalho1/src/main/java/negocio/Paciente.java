@@ -1,7 +1,9 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import persistencia.PacienteDAO;
+
 @Entity
 @Table(name = "paciente")
-public class Paciente {
+public class Paciente implements Serializable, EntidadeGenerica{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -48,6 +52,26 @@ public class Paciente {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
+
+    public static Paciente criarPaciente(){
+        Paciente pac = new Paciente();
+        Scanner sc = new Scanner(System.in);
+        String stringInput;
+
+        System.out.println("Insira o nome do paciente");
+        stringInput = sc.nextLine();
+        pac.setNome(stringInput);
+
+        System.out.println("Insira o cpf do paciente");
+        stringInput = sc.nextLine();
+        pac.setCpf(stringInput);
+
+        return pac;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + "]";
+    } 
     
 }
