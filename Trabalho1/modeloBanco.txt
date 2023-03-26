@@ -1,0 +1,11 @@
+Funcionario: Id, nome, email, senha
+Atendimento: Id, Data/Hora, Funcionário, Paciente, Observação
+Paciente: Id, Nome, CPF
+Setor: Id, Nome
+
+
+Setor |---< Funcionário
+Funcionário |---< Atendimento
+Cliente |---< Atendimento
+
+
