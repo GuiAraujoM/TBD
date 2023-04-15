@@ -4,10 +4,12 @@ import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.jsoup.Jsoup;
 import org.xml.sax.InputSource;
@@ -75,8 +77,9 @@ public class Article implements Comparable<Article>{
                 a.setTitle(syndEntry.getTitle());
                 a.setAuthor(syndEntry.getAuthor());
 
-                //LocalDateTime dateTime = LocalDateTime.parse(syndEntry.getPublishedDate().toString());
-                //System.out.println(dateTime);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
+                LocalDateTime ldt = formatter.parse(syndEntry.getPublishedDate().toString(), LocalDateTime::from);                
+                a.setDateTime(ldt);
 
                 List<SyndContent> cList = syndEntry.getContents();
 
@@ -87,7 +90,7 @@ public class Article implements Comparable<Article>{
                         String plainText = Jsoup.parse(c.getValue()).text();
                         body += plainText;
                     } else {
-                        body += c.getValue() + "\n\n\n";
+                        body += c.getValue();
                     }
                 }
 
@@ -97,7 +100,7 @@ public class Article implements Comparable<Article>{
             }
         }   
         
-        //Collections.sort(aList);
+        Collections.sort(aList);
 
         if(pag == 0) {
             pag = 1;
@@ -120,9 +123,10 @@ public class Article implements Comparable<Article>{
 
     @Override
     public String toString() {
-        String str = "<<< \t Artigo - " + link + " \t>>> ";
+        String str = "\tARTIGO - " + link;
         str += "\n\tTítulo: " + title;
         str += "\n\tAutor: " + author;
+        str += "\n\tPúblicado dia: " + dateTime.toString();
         str += "\n\t" + body;
 
         return str;
