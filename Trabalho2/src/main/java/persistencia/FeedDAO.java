@@ -23,33 +23,35 @@ public class FeedDAO {
                 .create();
     }
 
-    public void atualizar(Feed article) {
+    public void atualizar(Feed feed) {
         this.conexao = new Conexao();
-        if (this.conexao.getConexao().exists(article.getId().toString())) {
-            this.conexao.getConexao().set(article.getId().toString(), this.gson.toJson(article));
+        if (this.conexao.getConexao().exists(feed.getUrl().toString())) {
+            this.conexao.getConexao().set(feed.getUrl().toString(), this.gson.toJson(feed));
         }
         this.conexao.fechar();
 
     }
 
-    public void adicionar(Article article) {
+    public void adicionar(Feed feed) {
 
         this.conexao = new Conexao();
-        this.conexao.getConexao().set(article.getId().toString(), this.gson.toJson(article));
+        this.conexao.getConexao().set(feed.getUrl().toString(), this.gson.toJson(feed));
         this.conexao.fechar();
     }
 
-    public Feed obter(String id) {
+    public Feed obter(String url) {
         this.conexao = new Conexao();
-        Feed feed = this.gson.fromJson(this.conexao.getConexao().get(id), Feed.class);
+        Feed feed = this.gson.fromJson(this.conexao.getConexao().get(url), Feed.class);
         this.conexao.fechar();
         return feed;
 
     }
 
-    public void remover(UUID id) {
+    public void remover(String url) {
         this.conexao = new Conexao();
-        this.conexao.getConexao().del(id.toString());
+        if (this.conexao.getConexao().exists(url)) {
+            this.conexao.getConexao().del(url);
+        }        
         this.conexao.fechar();
 
     }
@@ -60,13 +62,18 @@ public class FeedDAO {
         Iterator iterator = vetLabels.iterator();
         List<Feed> vetFeed = new ArrayList<>();
         while (iterator.hasNext()) {
-            Object id = iterator.next();
-            String json = this.conexao.getConexao().get(id.toString());
+            Object url = iterator.next();
+            String json = this.conexao.getConexao().get(url.toString());
             Feed feed = this.gson.fromJson(json, Feed.class);
             vetFeed.add(feed);
-
         }
         this.conexao.fechar();
         return vetFeed;
     }
+
+    public void removerTudo(){
+        this.conexao = new Conexao();
+        this.conexao.getConexao().flushDB();
+        this.conexao.fechar();
+    }    
 }

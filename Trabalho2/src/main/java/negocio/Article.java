@@ -1,16 +1,25 @@
 package negocio;
 
-import java.util.UUID;
+import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.io.*;
 
-public class Article {
-    private UUID id;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.xml.sax.InputSource;
+
+public class Article implements Comparable<Article>{
     private String title;
     private String link;
-    private String imgUrl;
     private String body;
+    private String author;
+    private LocalDateTime dateTime;
 
     public Article(){
-        this.id = UUID.randomUUID();
     }
 
     public String getTitle() {
@@ -25,12 +34,6 @@ public class Article {
     public void setLink(String link) {
         this.link = link;
     }
-    public String getImgUrl() {
-        return imgUrl;
-    }
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
     public String getBody() {
         return body;
     }
@@ -38,12 +41,104 @@ public class Article {
         this.body = body;
     }
 
-    public UUID getId() {
-        return id;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setAuthor(String author) {
+        this.author = author;
     }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public static List<Article> buscarArtigos(List<String> urlList, int pag, int tam) throws IllegalArgumentException, FeedException {
+        
+        List<Article> aList = new ArrayList<Article>();
+
+        //String url = urlList.get(0);
+        for (String url : urlList) {
+            SyndFeedInput input = new SyndFeedInput();
+            SyndFeed feed = input.build(new InputSource(url));
+            Iterator itr = feed.getEntries().iterator();
+            
+            while (itr.hasNext()) {
+                SyndEntry syndEntry = (SyndEntry) itr.next();
+
+                Article a = new Article();
+                a.setLink(syndEntry.getLink());
+                a.setTitle(syndEntry.getTitle());
+                a.setAuthor(syndEntry.getAuthor());
+
+                //LocalDateTime dateTime = LocalDateTime.parse(syndEntry.getPublishedDate().toString());
+                //System.out.println(dateTime);
+
+                List<SyndContent> cList = syndEntry.getContents();
+
+                String body = "";
+                for (SyndContent c : cList) {
+
+                    if (c.getType().equals("html")) {                        
+                        String plainText = Jsoup.parse(c.getValue()).text();
+                        body += plainText;
+                    } else {
+                        body += c.getValue() + "\n\n\n";
+                    }
+                }
+
+                a.setBody(body);
+
+                aList.add(a);
+            }
+        }   
+        
+        //Collections.sort(aList);
+
+        if(pag == 0) {
+            pag = 1;
+        }
+        int primeiroArticle = 2 * (pag-1);
+        int ultimoArticle = primeiroArticle + (tam-1);
+
+        List<Article> aRetList = new ArrayList<>();
+        for(int i = primeiroArticle; i <= ultimoArticle; i++){
+            try {
+                if (aList.get(i) != null) aRetList.add(aList.get(i));
+            } catch (Exception e) {
+                return aRetList;
+            }
+            
+        }
+
+        return aRetList;
+    }
+
+    @Override
+    public String toString() {
+        String str = "<<< \t Artigo - " + link + " \t>>> ";
+        str += "\n\tTítulo: " + title;
+        str += "\n\tAutor: " + author;
+        str += "\n\t" + body;
+
+        return str;
+    }
+
+    @Override
+    public int compareTo(Article aToCompare) {
+        if(this.dateTime.isBefore(aToCompare.dateTime)){
+            return -1;
+        }
+
+        if (this.dateTime.isAfter(aToCompare.dateTime)) {
+            return 1;
+        }
+
+        return 0;
+    }    
     
 }

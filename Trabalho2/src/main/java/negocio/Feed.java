@@ -1,25 +1,17 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Feed {
-    private UUID id;
     private String name;
     private String url;
     private String category;
     private ArrayList<Article> articles;
 
     public Feed(){
-        this.id = UUID.randomUUID();
+        articles = new ArrayList<Article>();
     }
 
-    public UUID getId() {
-        return id;
-    }
-    public void setId(UUID id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -43,7 +35,11 @@ public class Feed {
     }
     public void setArticles(ArrayList<Article> articles) {
         this.articles = articles;
+    }    
+
+    @Override
+    public String toString() {
+        return "Feed [name=" + name + ", url=" + url + ", category=" + category + "]";
     }
-
-
+    
 }

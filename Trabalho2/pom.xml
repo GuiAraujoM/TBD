@@ -19,6 +19,13 @@
             <scope>runtime</scope>
         </dependency>
         <!--
+        https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.4</version>
+        </dependency>
+        <!--
         https://mvnrepository.com/artifact/com.rometools/rome -->
         <dependency>
             <groupId>com.rometools</groupId>
@@ -37,7 +44,8 @@
         </dependency>
     </dependencies>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>
+            UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>
             11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>

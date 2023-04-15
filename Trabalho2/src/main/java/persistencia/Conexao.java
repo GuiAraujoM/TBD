@@ -11,7 +11,6 @@ public class Conexao {
     public Conexao() {
         this.pool = new JedisPool("localhost", 6379);
         this.jedis = pool.getResource();
-        System.out.println("Conexão aberta");
     }
 
     public Jedis getConexao() {
@@ -21,7 +20,6 @@ public class Conexao {
     public void fechar() {
         this.jedis.close();
         this.pool.close();
-        System.out.println("Conexão fechada");
     }
 
 }
