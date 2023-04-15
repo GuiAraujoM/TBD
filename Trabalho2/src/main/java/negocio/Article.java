@@ -134,13 +134,13 @@ public class Article implements Comparable<Article>{
 
     @Override
     public int compareTo(Article aToCompare) {
-        if(this.dateTime.isBefore(aToCompare.dateTime)){
+        if (this.dateTime.isAfter(aToCompare.dateTime)) {
             return -1;
         }
 
-        if (this.dateTime.isAfter(aToCompare.dateTime)) {
+        if(this.dateTime.isBefore(aToCompare.dateTime)){
             return 1;
-        }
+        }        
 
         return 0;
     }    
