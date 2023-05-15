@@ -4,6 +4,8 @@ import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
+import java.util.ArrayList;
+
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 import org.bson.Document;
@@ -100,6 +102,7 @@ public class ContatoDAO extends BaseMongoDAO{
     }
 
     public MongoCursor<Contato> listarComPeloMenosUmTelefone() {
-        return contatoCollection.find(eq("telefones.0", new Document("$exists", true))).iterator();
+        Bson filter = Filters.exists("telefones.1");
+        return contatoCollection.find(filter).iterator();
     }
 }
