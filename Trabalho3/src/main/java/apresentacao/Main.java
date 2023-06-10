@@ -286,6 +286,8 @@ public class Main {
 
             c.getTelefones().removeIf(tel -> tel.getNumero().equals(num));
 
+            System.out.println(c.getTelefones());
+
             System.out.print("Deseja remover mais um telefone? (S / N): ");
             String removerTelefone = scanner.nextLine();
 
