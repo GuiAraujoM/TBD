@@ -52,6 +52,9 @@ public class Main {
         dao.desfazerAmizade(p2.getId(), p3.getId());
         System.out.println(dao.obterAmigos(p2.getId()).size() == 1); // Com uma amizade desfeita p2 agora só tem 1 amigo
 
+        //Além disso é possível recusar um pedido de amizade:
+        dao.solicitarAmizade(p3.getId(), p2.getId());
+        dao.cancelarSolicitacaoAmizade(p3.getId(), p2.getId());
 
         //Listagem de amigos de p2
         dao.obterAmigos(p2.getId()).forEach(t -> System.out.println(t));
