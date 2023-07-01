@@ -13,7 +13,7 @@ import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import java.util.List;
 
-@Table(keyspace = "exemplo", name = "pessoa")
+@Table(keyspace = "cassandra", name = "pessoa")
 public class Pessoa {
 
     @PartitionKey
