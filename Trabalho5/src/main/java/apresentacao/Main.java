@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 package apresentacao;
 
 import com.datastax.driver.core.BoundStatement;
